@@ -3,6 +3,16 @@
 Sistem cerdas berbasis web yang membantu calon mahasiswa Universitas Nahdlatul Ulama menemukan program studi yang paling cocok berdasarkan nilai akademik, minat, dan preferensi belajar.
 
 ---
+## Sumber Sourch Code
+
+SUmber Dari Mas AH Irfan Ulil Ilzam
+
+**Kontak**
+
+- **Email**: [ulilirvan@gmail.com]
+- **GitHub Issues**: [Create an issue](https://github.com/ulililzam/unu-match/issues)
+
+---
 
 ## Tentang Project
 
@@ -255,13 +265,6 @@ Kontribusi welcome! Fork repository → Create branch → Commit changes → Pus
 ## Lisensi
 
 **MIT License** - Copyright (c) 2026 UNU-Match
-
----
-
-## Kontak
-
-- **Email**: [ulilirvan@gmail.com]
-- **GitHub Issues**: [Create an issue](https://github.com/ulililzam/unu-match/issues)
 
 ---
 

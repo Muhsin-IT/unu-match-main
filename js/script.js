@@ -168,84 +168,84 @@ function loadResults() {
 // ===================================
 // CLUSTERING ALGORITHM (K-NN Based)
 // ===================================
-function normalizeValue(value, min, max) {
-    return (value - min) / (max - min);
-}
+// function normalizeValue(value, min, max) {
+//     return (value - min) / (max - min);
+// }
 
-function calculateEuclideanDistance(point1, point2) {
-    const features = [
-        'mtk', 'inggris', 'agama', 'fisika', 'kimia', 
-        'biologi', 'ekonomi', 'minat_teknik', 'minat_kesehatan', 
-        'minat_bisnis', 'minat_pendidikan', 'hafalan'
-    ];
+// function calculateEuclideanDistance(point1, point2) {
+//     const features = [
+//         'mtk', 'inggris', 'agama', 'fisika', 'kimia', 
+//         'biologi', 'ekonomi', 'minat_teknik', 'minat_kesehatan', 
+//         'minat_bisnis', 'minat_pendidikan', 'hafalan'
+//     ];
     
-    let sum = 0;
+//     let sum = 0;
     
-    // Normalize and calculate distance
-    features.forEach(feature => {
-        let val1 = point1[feature];
-        let val2 = point2[feature];
+//     // Normalize and calculate distance
+//     features.forEach(feature => {
+//         let val1 = point1[feature];
+//         let val2 = point2[feature];
         
-        // Normalize based on feature type
-        if (['mtk', 'inggris', 'agama', 'fisika', 'kimia', 'biologi', 'ekonomi'].includes(feature)) {
-            // Nilai mata pelajaran: 0-100
-            val1 = val1 / 100;
-            val2 = val2 / 100;
-        } else if (['minat_teknik', 'minat_kesehatan', 'minat_bisnis', 'minat_pendidikan'].includes(feature)) {
-            // Minat: 1-5
-            val1 = (val1 - 1) / 4;
-            val2 = (val2 - 1) / 4;
-        }
-        // hafalan sudah 0-1, tidak perlu normalisasi
+//         // Normalize based on feature type
+//         if (['mtk', 'inggris', 'agama', 'fisika', 'kimia', 'biologi', 'ekonomi'].includes(feature)) {
+//             // Nilai mata pelajaran: 0-100
+//             val1 = val1 / 100;
+//             val2 = val2 / 100;
+//         } else if (['minat_teknik', 'minat_kesehatan', 'minat_bisnis', 'minat_pendidikan'].includes(feature)) {
+//             // Minat: 1-5
+//             val1 = (val1 - 1) / 4;
+//             val2 = (val2 - 1) / 4;
+//         }
+//         // hafalan sudah 0-1, tidak perlu normalisasi
         
-        const diff = val1 - val2;
-        sum += diff * diff;
-    });
+//         const diff = val1 - val2;
+//         sum += diff * diff;
+//     });
     
-    return Math.sqrt(sum);
-}
+//     return Math.sqrt(sum);
+// }
 
-function findTopMatches(userProfile, k = 100) {
-    // Calculate distance to all training data
-    const distances = trainingData.map(data => ({
-        prodi: data.prodi,
-        distance: calculateEuclideanDistance(userProfile, data)
-    }));
+// function findTopMatches(userProfile, k = 100) {
+//     // Calculate distance to all training data
+//     const distances = trainingData.map(data => ({
+//         prodi: data.prodi,
+//         distance: calculateEuclideanDistance(userProfile, data)
+//     }));
     
-    // Sort by distance (closest first)
-    distances.sort((a, b) => a.distance - b.distance);
+//     // Sort by distance (closest first)
+//     distances.sort((a, b) => a.distance - b.distance);
     
-    // Get top k nearest neighbors
-    const topK = distances.slice(0, k);
+//     // Get top k nearest neighbors
+//     const topK = distances.slice(0, k);
     
-    // Count votes for each prodi
-    const votes = {};
-    topK.forEach(item => {
-        if (!votes[item.prodi]) {
-            votes[item.prodi] = { count: 0, totalDistance: 0 };
-        }
-        votes[item.prodi].count++;
-        votes[item.prodi].totalDistance += item.distance;
-    });
+//     // Count votes for each prodi
+//     const votes = {};
+//     topK.forEach(item => {
+//         if (!votes[item.prodi]) {
+//             votes[item.prodi] = { count: 0, totalDistance: 0 };
+//         }
+//         votes[item.prodi].count++;
+//         votes[item.prodi].totalDistance += item.distance;
+//     });
     
-    // Calculate match percentage
-    const results = Object.keys(votes).map(prodi => {
-        const avgDistance = votes[prodi].totalDistance / votes[prodi].count;
-        const matchPercentage = Math.max(0, 100 - (avgDistance * 50)); // Scale to 0-100%
+//     // Calculate match percentage
+//     const results = Object.keys(votes).map(prodi => {
+//         const avgDistance = votes[prodi].totalDistance / votes[prodi].count;
+//         const matchPercentage = Math.max(0, 100 - (avgDistance * 50)); // Scale to 0-100%
         
-        return {
-            prodi: prodi,
-            matchPercentage: Math.round(matchPercentage * 10) / 10,
-            votes: votes[prodi].count,
-            avgDistance: avgDistance
-        };
-    });
+//         return {
+//             prodi: prodi,
+//             matchPercentage: Math.round(matchPercentage * 10) / 10,
+//             votes: votes[prodi].count,
+//             avgDistance: avgDistance
+//         };
+//     });
     
-    // Sort by match percentage
-    results.sort((a, b) => b.matchPercentage - a.matchPercentage);
+//     // Sort by match percentage
+//     results.sort((a, b) => b.matchPercentage - a.matchPercentage);
     
-    return results;
-}
+//     return results;
+// }
 
 // ===================================
 // PREDICTION ALGORITHM (Random Forest)
